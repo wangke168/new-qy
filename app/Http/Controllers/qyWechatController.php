@@ -48,8 +48,10 @@ class qyWechatController extends Controller
 //        $app = app('wechat.official_account');
 
         $weObj = Factory::work($config);
-        $weObj->server->push(function(){
-            return 'Hello easywechat.';
+//        $message = $weObj->getMessage();
+        $weObj->server->push(function($message){
+
+            return $message['FromUserName'];
         });
 
         $response = $weObj->server->serve();
