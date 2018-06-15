@@ -192,7 +192,7 @@ class qyWechatController extends Controller
             )
         );*/
 
-        $items1 = [
+        $items = [
             new NewsItem([
                 'title' => '查询结果',
                 'description' => $str,
@@ -203,18 +203,7 @@ class qyWechatController extends Controller
 
             // ...
         ];
-        $items2 = [
-            new NewsItem([
-                'title' => '查询结果',
-                'description' => $str,
-                'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
-//                'image'       => $image,
-                // ...
-            ]),
-
-            // ...
-        ];
-        $news = new News([$items1,$items2]);
+        $news = new News($items);
 
 
 
