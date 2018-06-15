@@ -219,7 +219,7 @@ class qyWechatController extends Controller
 
 
 //        $weObj = Factory::work($this->config());
-       $this->weObj->customer_service->message($news)->to($openId)->send();
+//       $this->weObj->customer_service->message($news)->to($openId)->send();
         return $news;
     }
 
