@@ -100,9 +100,9 @@ class qyWechatController extends Controller
 
                         //...
                     ];
-              /*      $app = Factory::work($config);
-                    $text = new Text('Hello world!');
-          $result = $app->customer_service->message($text)->to('hd_wangke')->send();*/
+                    $app = Factory::work($config);
+                    /*    $text = new Text('Hello world!');
+              $result = $app->customer_service->message($text)->to('hd_wangke')->send();*/
 
 
                     $news=$this->Check_tecket($message['Content']);
