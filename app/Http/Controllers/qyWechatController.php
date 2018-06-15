@@ -68,6 +68,7 @@ class qyWechatController extends Controller
         $news = new News($items);
 
         $weObj = Factory::work($this->config());
+        $message11 = $weObj->server->getMessage();
         /*$message = new Text('Hello world!');
         $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
         $weObj->server->push(function ($message) {
@@ -100,9 +101,9 @@ class qyWechatController extends Controller
 
                         //...
                     ];
-                    $app = Factory::work($config);
+                  /*  $app = Factory::work($config);
                         $text = new Text('Hello world!');
-              $result = $app->customer_service->message($text)->to('hd_wangke')->send();
+              $result = $app->customer_service->message($text)->to('hd_wangke')->send();*/
 
 
                     $news=$this->Check_tecket($message['Content']);
