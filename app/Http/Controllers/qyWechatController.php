@@ -65,9 +65,13 @@ class qyWechatController extends Controller
         $weObj = Factory::work($config);
 
         $weObj->server->push(function ($message) {
+            switch ($message['MsgType']) {
+                case 'text':
+                    return $message['FromUserName'];
+                    break;
+            }
 
 
-            return $message['FromUserName'];
 
             //            return $this->Check_tecket($message['Content']);
 //            $weObj->news($this->Check_tecket($c))->reply()
