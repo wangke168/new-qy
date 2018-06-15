@@ -14,28 +14,6 @@ use EasyWeChat\Kernel\Messages\NewsItem;
 
 class qyWechatController extends Controller
 {
-    public $weObj;
-    public $usage;
-    public $openid;
-    public $server;
-    public $staff;
-    public function __construct()
-    {
-        $config = [
-            'corp_id' => 'wwfb1970349326c73f',
-
-            'agent_id' => 1000004,
-            'secret' => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
-
-            // server config
-            'token' => 'jianpiao',
-            'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
-
-            //...
-        ];
-        $this->$weObj = $weObj = Factory::work($config);
-        $this->server = $this->$weObj->server;
-    }
     public function config()
     {
         $config = [
@@ -89,33 +67,30 @@ class qyWechatController extends Controller
         ];
         $news = new News($items);
 
-//        $weObj = Factory::work($this->config());
+        $weObj = Factory::work($this->config());
         /*$message = new Text('Hello world!');
         $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
-        $this->weObj->server->push(function ($message) {
+        $weObj->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'text':
 
                /*     $text = new Text($message['FromUserName']);
                     return $text;*/
+                /*    $items = [
+                        new NewsItem([
+                            'title' => '查询结果',
+                            'description' => 'asdas',
+                            'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                            // ...
+                        ]),
 
-
-             /*       $config = [
-                        'corp_id' => 'wwfb1970349326c73f',
-
-                        'agent_id' => 1000004,
-                        'secret' => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
-
-                        // server config
-                        'token' => 'jianpiao',
-                        'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
-
-                        //...
+                        // ...
                     ];
-                $app=Factory::work($config);
+                    $news = new News($items);*/
 
-                    $text = new Text('Hello world!');
-          $result = $app->customer_service->message($text)->to($message['FromUserName'])->send();*/
+                    /*$text = new Text('Hello world!');
+          $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
 
 
                     $news=$this->Check_tecket($message['Content']);
@@ -132,7 +107,7 @@ class qyWechatController extends Controller
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
 
-        $response = $this->weObj->server->serve();
+        $response = $weObj->server->serve();
 
         $response->send();
 
