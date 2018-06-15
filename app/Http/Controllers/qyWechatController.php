@@ -88,9 +88,21 @@ class qyWechatController extends Controller
                         // ...
                     ];
                     $news = new News($items);*/
+                    $config = [
+                        'corp_id' => 'wwfb1970349326c73f',
 
-                    /*$text = new Text('Hello world!');
-          $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
+                        'agent_id' => 1000004,
+                        'secret' => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
+
+                        // server config
+                        'token' => 'jianpiao',
+                        'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
+
+                        //...
+                    ];
+                    $app = Factory::work($config);
+                    $text = new Text('Hello world!');
+          $result = $app->customer_service->message($text)->to('hd_wangke')->send();
 
 
                     $news=$this->Check_tecket($message['Content']);
