@@ -68,8 +68,8 @@ class qyWechatController extends Controller
         $news = new News($items);
 
         $weObj = Factory::work($this->config());
-        $message = new Text('Hello world!');
-        $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();
+        /*$message = new Text('Hello world!');
+        $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
         $weObj->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'text':
