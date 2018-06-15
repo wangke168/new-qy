@@ -67,10 +67,9 @@ class qyWechatController extends Controller
         $weObj->server->push(function ($message) {
 
 
+            return $message['FromUserName'];
 
-//            return $message['FromUserName'];
-            return $message->ToUserName;
-//            return $this->Check_tecket($message['Content']);
+            //            return $this->Check_tecket($message['Content']);
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
 
