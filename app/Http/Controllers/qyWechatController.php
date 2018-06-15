@@ -86,19 +86,9 @@ class qyWechatController extends Controller
 
                /*     $text = new Text($message['FromUserName']);
                     return $text;*/
-                /*    $items = [
-                        new NewsItem([
-                            'title' => '查询结果',
-                            'description' => 'asdas',
-                            'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
-//                'image'       => $image,
-                            // ...
-                        ]),
 
-                        // ...
-                    ];
-                    $news = new News($items);*/
-                    $config = [
+
+             /*       $config = [
                         'corp_id' => 'wwfb1970349326c73f',
 
                         'agent_id' => 1000004,
@@ -113,11 +103,11 @@ class qyWechatController extends Controller
                 $app=Factory::work($config);
 
                     $text = new Text('Hello world!');
-          $result = $app->customer_service->message($text)->to($message['FromUserName'])->send();
+          $result = $app->customer_service->message($text)->to($message['FromUserName'])->send();*/
 
 
-                    /*$news=$this->Check_tecket($message['Content']);
-                    return $news;*/
+                    $news=$this->Check_tecket($message['Content']);
+                    return $news;
                     break;
                 default:
                     return '收到其它消息';
