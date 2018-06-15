@@ -110,7 +110,7 @@ class qyWechatController extends Controller
 
                         //...
                     ];
-                $app=Factory::work($config());
+                $app=Factory::work($config);
 
                     $text = new Text('Hello world!');
           $result = $app->customer_service->message($text)->to($message['FromUserName'])->send();
