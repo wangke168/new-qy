@@ -69,7 +69,7 @@ class qyWechatController extends Controller
                 case 'text':
                /*     $text = new Text($message['FromUserName']);
                     return $text;*/
-                    $items = [
+                /*    $items = [
                         new NewsItem([
                             'title' => '查询结果',
                             'description' => 'asdas',
@@ -80,7 +80,8 @@ class qyWechatController extends Controller
 
                         // ...
                     ];
-                    $news = new News($items);
+                    $news = new News($items);*/
+                    $news=$this->Check_tecket($message['Content']);
                     return $news;
                     break;
                 default:
@@ -172,14 +173,27 @@ class qyWechatController extends Controller
         } else {
             $str = "该手机号下无门票订单";
         }
-        $newsData = array(
+  /*      $newsData = array(
             "0" => array(
                 'Title' => '查询结果',
                 'Description' => $str,
                 'Url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482'
             )
-        );
-        return $newsData;
+        );*/
+
+        $items = [
+            new NewsItem([
+                'title' => '查询结果',
+                'description' => $str,
+                'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                // ...
+            ]),
+
+            // ...
+        ];
+        $news = new News($items);
+        return $news;
     }
 
 }
