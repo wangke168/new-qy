@@ -14,7 +14,27 @@ use EasyWeChat\Kernel\Messages\NewsItem;
 
 class qyWechatController extends Controller
 {
-    public function config()
+    public $weObj;
+    public $config;
+    public function __construct()
+    {
+        $this->config=[
+            'corp_id' => 'wwfb1970349326c73f',
+
+            'agent_id' => 1000004,
+            'secret' => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
+
+            // server config
+            'token' => 'jianpiao',
+            'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
+
+            //...
+        ];
+        $this->weObj=Factory::work($this->config);
+
+    }
+
+/*    public function config()
     {
         $config = [
             'corp_id' => 'wwfb1970349326c73f',
@@ -29,7 +49,7 @@ class qyWechatController extends Controller
             //...
         ];
         return $config;
-    }
+    }*/
     public function test()
     {
         //  include(app_path() . 'app/qyWechat/qyWechat.php');
@@ -67,11 +87,8 @@ class qyWechatController extends Controller
         ];
         $news = new News($items);
 
-        $weObj = Factory::work($this->config());
-        $message11 = $weObj->server->getMessage();
-        /*$message = new Text('Hello world!');
-        $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
-        $weObj->server->push(function ($message) {
+//        $weObj = Factory::work($this->config());
+        $this->weObj->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'text':
 
@@ -123,7 +140,7 @@ class qyWechatController extends Controller
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
 
-        $response = $weObj->server->serve();
+        $response = $this->weObj->server->serve();
 
         return $response;
 
