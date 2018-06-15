@@ -49,27 +49,27 @@ class qyWechatController extends Controller
 //        $app = app('wechat.official_account');
 
 
+        $items = [
+            new NewsItem([
+                'title' => '查询结果',
+                'description' => 'asdas',
+                'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                // ...
+            ]),
 
+            // ...
+        ];
+        $news = new News($items);
 
         $weObj = Factory::work($config);
 
         $weObj->server->push(function ($message) {
 
 
-            $items = [
-                new NewsItem([
-                    'title' => '查询结果',
-                    'description' => 'asdas',
-                    'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
-//                'image'       => $image,
-                    // ...
-                ]),
 
-                // ...
-            ];
-//            $news = new News($items);
 //            return $message['FromUserName'];
-            return new News([$items]);
+            return $message->ToUserName;
 //            return $this->Check_tecket($message['Content']);
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
