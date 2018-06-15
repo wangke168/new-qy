@@ -77,10 +77,10 @@ class qyWechatController extends Controller
         ];
         $news = new News($items);
 
-        $weObj = Factory::work($this->config());
+//        $weObj = Factory::work($this->config());
         /*$message = new Text('Hello world!');
         $result = $weObj->customer_service->message($message)->to('hd_wangke')->send();*/
-        $weObj->server->push(function ($message) {
+        $this->weObj->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'text':
 
@@ -130,7 +130,7 @@ class qyWechatController extends Controller
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
 
-        $response = $weObj->server->serve();
+        $response = $this->weObj->server->serve();
 
         $response->send();
 
