@@ -52,43 +52,9 @@ class qyWechatController extends Controller
     }*/
     public function test()
     {
-        //  include(app_path() . 'app/qyWechat/qyWechat.php');
-        /*$options = array(
-            'token' => 'yz43hRyIDGFUdQy3qtaZ0',    //填写应用接口的Token
-            'encodingaeskey' => '4WGM6Jmxyqg05GXkKoNutpVSWGfRHKdwUoLzL6UeVyE',//填写加密用的EncodingAESKey
-            'appid' => 'wx6bb8b192d1dcfe19',    //填写高级调用功能的appid
-            'appsecret' => 'H4AyKWaEQiUJg7fQ5abwqrTF_QbjlnzJ8AZlPC_Ll9CiAwote4G-mXOE6C9YDNtj', //填写高级调用功能的密钥
-//            'logcallback' => 'logg'
-            'agentid' => '8', //应用的id
 
-        );*/
-
-
-
-
-
-//        logg("GET参数为：\n".var_export($_GET,true));
-        /*$weObj = new \Wechat($options);
-        $ret=$weObj->valid();*/
-
-//        $app = app('wechat.official_account');
-
-
-        $items = [
-            new NewsItem([
-                'title' => '查询结果',
-                'description' => 'asdas',
-                'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
-//                'image'       => $image,
-                // ...
-            ]),
-
-            // ...
-        ];
-        $news = new News($items);
-
-//        $weObj = Factory::work($this->config());
         $this->weObj->server->push(function ($message) {
+            $openid=$message['FromUserName'];
             switch ($message['MsgType']) {
                 case 'text':
 
@@ -123,7 +89,7 @@ class qyWechatController extends Controller
               $result = $app->customer_service->message($text)->to('hd_wangke')->send();*/
 
 
-                    $news=$this->Check_tecket($message['Content']);
+                    $news=$this->Check_tecket($message['Content'],$openid);
 
 
 
@@ -179,7 +145,7 @@ class qyWechatController extends Controller
     }
 
 //检票口
-    private function Check_tecket($tel)
+    private function Check_tecket($tel,$openId)
     {
         $url = env('QY_WECHAT_JIANPIAO_URL', 'url');
         $url = $url . $tel;
@@ -238,8 +204,8 @@ class qyWechatController extends Controller
             // ...
         ];
         $news = new News($items);
-      /*  $weObj = Factory::work($this->config());
-        $result = $weObj->customer_service->message($message)->to($openId)->send();*/
+//        $weObj = Factory::work($this->config());
+        $this->weObj->customer_service->message($news)->to($openId)->send();
         return $news;
     }
 
