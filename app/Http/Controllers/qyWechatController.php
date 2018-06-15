@@ -67,9 +67,21 @@ class qyWechatController extends Controller
         $weObj->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'text':
+               /*     $text = new Text($message['FromUserName']);
+                    return $text;*/
+                    $items = [
+                        new NewsItem([
+                            'title' => '查询结果',
+                            'description' => 'asdas',
+                            'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                            // ...
+                        ]),
 
-                    $text = new Text($message['FromUserName']);
-                    return $text;
+                        // ...
+                    ];
+                    $news = new News($items);
+                    return $news;
                     break;
                 default:
                     return '收到其它消息';
