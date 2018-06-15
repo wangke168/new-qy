@@ -192,7 +192,7 @@ class qyWechatController extends Controller
             )
         );*/
 
-        $items = [
+        $items1 = [
             new NewsItem([
                 'title' => '查询结果',
                 'description' => $str,
@@ -203,9 +203,23 @@ class qyWechatController extends Controller
 
             // ...
         ];
-        $news = new News($items);
+        $items2 = [
+            new NewsItem([
+                'title' => '查询结果',
+                'description' => $str,
+                'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                // ...
+            ]),
+
+            // ...
+        ];
+        $news = new News([$items1,$items2]);
+
+
+
 //        $weObj = Factory::work($this->config());
-       $this->weObj->customer_service->message([$news])->to($openId)->send();
+       $this->weObj->customer_service->message($news)->to($openId)->send();
         return $news;
     }
 
