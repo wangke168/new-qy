@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 
-
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use EasyWeChat\Factory;
 use EasyWeChat\Work;
 use EasyWeChat\Kernel\Messages\Text;
+use EasyWeChat\Kernel\Messages\News;
+use EasyWeChat\Kernel\Messages\NewsItem;
+
 class qyWechatController extends Controller
 {
     public function test()
     {
-      //  include(app_path() . 'app/qyWechat/qyWechat.php');
+        //  include(app_path() . 'app/qyWechat/qyWechat.php');
         /*$options = array(
             'token' => 'yz43hRyIDGFUdQy3qtaZ0',    //填写应用接口的Token
             'encodingaeskey' => '4WGM6Jmxyqg05GXkKoNutpVSWGfRHKdwUoLzL6UeVyE',//填写加密用的EncodingAESKey
@@ -26,19 +28,18 @@ class qyWechatController extends Controller
         );*/
 
 
-            $config = [
-                'corp_id' => 'wwfb1970349326c73f',
+        $config = [
+            'corp_id' => 'wwfb1970349326c73f',
 
-                'agent_id' => 1000004,
-                'secret'   => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
+            'agent_id' => 1000004,
+            'secret' => 'TsbKy9F_yo_d3bXKJ0HNqgcq4FjXW3dPXmXLhyVm918',
 
-                // server config
-                'token' => 'jianpiao',
-                'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
+            // server config
+            'token' => 'jianpiao',
+            'aes_key' => 'X5HFXA537wZkVwUicueeuPlsGgvgftDPdyv9pnNMaMp',
 
-                //...
-            ];
-
+            //...
+        ];
 
 
 //        logg("GET参数为：\n".var_export($_GET,true));
@@ -47,12 +48,29 @@ class qyWechatController extends Controller
 
 //        $app = app('wechat.official_account');
 
+
+
+
         $weObj = Factory::work($config);
 
-        $weObj->server->push(function($message){
+        $weObj->server->push(function ($message) {
 
+
+            $items = [
+                new NewsItem([
+                    'title' => '查询结果',
+                    'description' => 'asdas',
+                    'url' => 'https://wechat.hdyuanmingxinyuan.com/article/detail?id=1482',
+//                'image'       => $image,
+                    // ...
+                ]),
+
+                // ...
+            ];
+//            $news = new News($items);
 //            return $message['FromUserName'];
-            return $this->Check_tecket($message['Content']);
+            return new News([$items]);
+//            return $this->Check_tecket($message['Content']);
 //            $weObj->news($this->Check_tecket($c))->reply()
         });
 
@@ -62,9 +80,9 @@ class qyWechatController extends Controller
 
 //        $weObj->news($this->Check_tecket($c))->reply()
 
-     /*   if (!$ret) {
-            \Log::info($ret);
-        }*/
+        /*   if (!$ret) {
+               \Log::info($ret);
+           }*/
         /*
         $f = $weObj->getRev()->getRevFrom();	//获取发送者微信号
         $t = $weObj->getRevType();				//获取发送的类型
@@ -76,18 +94,18 @@ class qyWechatController extends Controller
         }
         */
 
-   /*     $f = $weObj->getRev()->getRevFrom();	//获取发送者微信号
-        $t = $weObj->getRevType();				//获取发送的类型
-        $d = $weObj->getRevData();				//获取发送的data
-        $c = $weObj->getRevContent();			//获取发送的内容
-        if ($t=="text")
-        {
-//            $c = $weObj->getRevContent();			//获取发送的内容
-//           $weObj->text("你好！来自星星的：")->reply();
-//            $c = $weObj->getRevContent();			//获取发送的内容
-            $weObj->news($this->Check_tecket($c))->reply();
+        /*     $f = $weObj->getRev()->getRevFrom();	//获取发送者微信号
+             $t = $weObj->getRevType();				//获取发送的类型
+             $d = $weObj->getRevData();				//获取发送的data
+             $c = $weObj->getRevContent();			//获取发送的内容
+             if ($t=="text")
+             {
+     //            $c = $weObj->getRevContent();			//获取发送的内容
+     //           $weObj->text("你好！来自星星的：")->reply();
+     //            $c = $weObj->getRevContent();			//获取发送的内容
+                 $weObj->news($this->Check_tecket($c))->reply();
 
-        }*/
+             }*/
 //logg("-----------------------------------------");
 //        $weObj->valid();
 
@@ -97,7 +115,7 @@ class qyWechatController extends Controller
 //检票口
     private function Check_tecket($tel)
     {
-        $url= env('QY_WECHAT_JIANPIAO_URL', 'url');
+        $url = env('QY_WECHAT_JIANPIAO_URL', 'url');
         $url = $url . $tel;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
