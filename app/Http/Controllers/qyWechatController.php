@@ -14,6 +14,16 @@ use EasyWeChat\Kernel\Messages\NewsItem;
 
 class qyWechatController extends Controller
 {
+    public $weObj;
+    public $usage;
+    public $openid;
+    public $server;
+    public $staff;
+    public function __construct()
+    {
+        $this->$weObj = $weObj = Factory::work($this->config());
+        $this->server = $this->$weObj->server;
+    }
     public function config()
     {
         $config = [
@@ -88,8 +98,14 @@ class qyWechatController extends Controller
                         // ...
                     ];
                     $news = new News($items);*/
-                    $news=$this->Check_tecket($message['Content']);
-                    return $news;
+                $app=Factory::work($this->config());
+
+                    $text = new Text('Hello world!');
+          $result = $app->customer_service->message($text)->to($message['FromUserName'])->send();
+
+
+                    /*$news=$this->Check_tecket($message['Content']);
+                    return $news;*/
                     break;
                 default:
                     return '收到其它消息';
